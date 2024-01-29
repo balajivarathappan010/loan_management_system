@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lender Loan Application</title>
+    <link rel="stylesheet" href="/CSS/styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="/post/history">History</a>
+        <a href="/post/logout">Logout</a>
+    </div>
+    {{!-- <div class="form-container">
+        <form action="/post/lender" method="POST">
+            <h2>Welcome to Lender Dashboard</h2>
+            {{#if accountno}}
+            <ul>
+                {{#each accountno}}
+                <li>
+                    <p>Account number: {{this.accountno}}</p>
+                    <p>Loan Type: {{this.loanType}}</p>
+                    <p>Amount: {{this.amount}}</p>
+                    <p>Interest: {{this.interest}}</p>
+                    <p>Tenure: {{this.tenure}}</p>
+                    <button class="approveButton" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Approve</button>
+                    <button class="rejectButton" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Reject</button>
+                </li>
+                {{/each}}
+            </ul>
+            {{else}}
+            <p>No data found</p>
+            {{/if}}
+        </form>
+    </div> --}}
+    <div class="form-container">
+        <form action="/post/lender" method="POST">
+            <h2>Welcome to Lender Dashboard</h2>
+            {{#if accountno}}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Account number</th>
+                        <th>Loan Type</th>
+                        <th>Amount</th>
+                        <th>Interest</th>
+                        <th>Tenure</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each accountno}}
+                    <tr>
+                        <td>{{this.accountno}}</td>
+                        <td>{{this.loanType}}</td>
+                        <td>{{this.amount}}</td>
+                        <td>{{this.interest}}</td>
+                        <td>{{this.tenure}}</td>
+                        <td>
+                            <button class="approveButton" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Approve</button>
+                            <button class="rejectButton" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Reject</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>No data found</p>
+            {{/if}}
+        </form>
+    </div>
+
+    <script>
+        document.querySelectorAll('.approveButton, .rejectButton').forEach(button => {
+        button.addEventListener('click', async function(event) {
+            event.preventDefault();
+            const accountno = this.dataset.accountno;
+            const loanType = this.dataset.loanType;
+            const amount = this.dataset.amount;
+            const interest = this.dataset.interest;
+            const tenure = this.dataset.tenure;
+            const response = await fetch(this.classList.contains('approveButton') ? '/post/approve' : '/post/reject', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ accountno: accountno, loanType:loanType, amount: amount, interest:interest, tenure:tenure})
+            });
+            if (response.ok) {
+                this.closest('tr').remove(); // Remove the item from the UI
+            } else {
+                console.error('Operation failed');
+            }
+        });
+    });
+    </script>
+</body>
+</html>
+

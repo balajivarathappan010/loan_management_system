@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/styles.css">
+    <title>Signup/Login Page</title>
+</head>
+<body>
+    <div class="title">
+        <h2>Registration</h2>
+    </div>
+    <div class="form-container-submit">
+        
+        <form action="/post/signup" method="POST">
+            {{#if msg}}
+            <p class="{{msg_type}}">{{msg}}</p>
+            {{/if}}
+            <h2>Registration</h2>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="password">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Confirm Password:</label>
+                <input type="password" id="password" name="confirmpassword" placeholder="Confirm Password">
+            </div>
+            <div class="form-group">
+                <label for="pancard">PAN CARD</label>
+                <input type="text" id="pancard" name="pancard" placeholder="PAN Card">
+            </div>
+            <div class="form-group">
+                <label for="dateofbirth">dob</label>
+                <input type="text" id="dateofbirth" name="dateofbirth" placeholder="DD-MM-YYYY">
+            </div>
+            {{!-- <div class="form-group">
+                <label for="accountno">Account no</label>
+                <input type="text" id="accountno" name="accountno" placeholder="Account number">
+            </div> --}}
+            {{!-- <div class="form-group">
+                <label for="profession">Role:</label>
+                <select id="profession" name="role" required>
+                    <option value="" hidden>--select the Role--</option>
+                    <option value="borrower">borrower</option>
+                    <option value="lender">lender</option>
+                </select>
+            </div> --}}
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="login">
+        <p>Do you have an account already?<a href="/login">Login</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+</head>
+<body>
+    <div class="form-container">
+        {{#if amount}}
+        <h2>Approved Load Details</h2>
+        <ul>
+            {{#each amount}}
+            <li>
+                <p>Loan Type: {{this.loanType}}</p>
+                <p>Amount: {{this.amount}}</p>
+                <p>Interest: {{this.interest}}</p>
+                <p>Tenure: {{this.tenure}}</p>
+                <p>Approved</p>
+            </li>
+            {{/each}}
+        </ul>
+        {{else}}
+        <p>No data found</p>
+        {{/if}}
+    </div>
+</body>
+</html>
+
