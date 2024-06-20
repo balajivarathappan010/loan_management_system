@@ -8,41 +8,27 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="/post/history">History</a>
+        {{!-- <form action="/post/history" method="POST">
+            <button type="submit">History</button>
+        </form> --}}
         <a href="/post/logout">Logout</a>
     </div>
-    {{!-- <div class="form-container">
-        <form action="/post/lender" method="POST">
-            <h2>Welcome to Lender Dashboard</h2>
-            {{#if accountno}}
-            <ul>
-                {{#each accountno}}
-                <li>
-                    <p>Account number: {{this.accountno}}</p>
-                    <p>Loan Type: {{this.loanType}}</p>
-                    <p>Amount: {{this.amount}}</p>
-                    <p>Interest: {{this.interest}}</p>
-                    <p>Tenure: {{this.tenure}}</p>
-                    <button class="approveButton" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Approve</button>
-                    <button class="rejectButton" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Reject</button>
-                </li>
-                {{/each}}
-            </ul>
-            {{else}}
-            <p>No data found</p>
-            {{/if}}
-        </form>
-    </div> --}}
     <div class="form-container">
         <form action="/post/lender" method="POST">
             <h2>Welcome to Lender Dashboard</h2>
+            <div class="SearchBox">
+                <input type="text" class="amountInput" name="amount" placeholder="Enter Amount">
+                <button type="submit">Search</button>
+            </div>
             {{#if accountno}}
             <table class="data-table">
                 <thead>
                     <tr>
+                        <th>Username</th>
                         <th>Account number</th>
                         <th>Loan Type</th>
                         <th>Amount</th>
+                        <th>Reason</th>
                         <th>Interest</th>
                         <th>Tenure</th>
                         <th>Actions</th>
@@ -51,14 +37,16 @@
                 <tbody>
                     {{#each accountno}}
                     <tr>
+                        <td>{{this.username}}</td>
                         <td>{{this.accountno}}</td>
                         <td>{{this.loanType}}</td>
                         <td>{{this.amount}}</td>
+                        <td>{{this.reason}}</td>
                         <td>{{this.interest}}</td>
                         <td>{{this.tenure}}</td>
                         <td>
-                            <button class="approveButton" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Approve</button>
-                            <button class="rejectButton" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Reject</button>
+                            <button class="approveButton" data-username="{{this.username}}" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-reason="{{this.reason}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Approve</button>
+                            <button class="rejectButton" data-username="{{this.username}}" data-accountno="{{this.accountno}}" data-loanType="{{this.loanType}}" data-amount="{{this.amount}}" data-reason="{{this.reason}}" data-interest="{{this.interest}}" data-tenure="{{this.tenure}}">Reject</button>
                         </td>
                     </tr>
                     {{/each}}
@@ -72,11 +60,14 @@
 
     <script>
         document.querySelectorAll('.approveButton, .rejectButton').forEach(button => {
+        
         button.addEventListener('click', async function(event) {
             event.preventDefault();
+            const username = this.dataset.username;
             const accountno = this.dataset.accountno;
             const loanType = this.dataset.loanType;
             const amount = this.dataset.amount;
+            const reason = this.dataset.reason;
             const interest = this.dataset.interest;
             const tenure = this.dataset.tenure;
             const response = await fetch(this.classList.contains('approveButton') ? '/post/approve' : '/post/reject', {
@@ -84,7 +75,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ accountno: accountno, loanType:loanType, amount: amount, interest:interest, tenure:tenure})
+                body: JSON.stringify({ username: username, accountno: accountno, loanType: loanType, amount: amount, reason:reason, interest:interest, tenure:tenure})
             });
             if (response.ok) {
                 this.closest('tr').remove(); // Remove the item from the UI
@@ -92,8 +83,10 @@
                 console.error('Operation failed');
             }
         });
+        
     });
+    
+
     </script>
 </body>
 </html>
-

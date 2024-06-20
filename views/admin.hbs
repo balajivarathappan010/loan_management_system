@@ -7,35 +7,9 @@
     <title>Admin Page</title>
 </head>
 <body>
-    {{!-- <div class="title">
-        <h2></h2>
-    </div> --}}
     <div class="navbar">
         <a href="/post/adminlogout">Logout</a>
     </div>
-
-    {{!-- <div class="form-container">
-        <form action="/post/admin" method="POST">
-            <h1>Welcome to admin page</h1>
-            {{#if data}}
-            <ul>
-                {{#each data}}
-                <li>
-                    <p>Account number: {{this.accountno}}</p>
-                    <p>Loan Type: {{this.loanType}}</p>
-                    <p>Amount: {{this.amount}}</p>
-                    <p>Interest: {{this.interest}}</p>
-                    <p>Tenure: {{this.tenure}}</p>
-                    <p class="{{#if_eq this.status "approved"}}correct{{else}}incorrect{{/if_eq}}">{{this.status}}</p>
-
-                </li>
-                {{/each}}
-            </ul>
-            {{else}}
-            <p>No data found</p>
-            {{/if}}
-        </form>
-    </div> --}}
     <div class="form-container">
         <form action="/post/admin" method="POST">
             <h1>Welcome to admin page</h1>
@@ -45,9 +19,12 @@
                 <thead>
                     <tr>
                         <th>Account number</th>
+                        <th>Reason</th>
                         <th>Amount</th>
                         <th>Interest</th>
                         <th>Tenure</th>
+                        <th>Apply Date</th>
+                        <th>Status Date</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -55,9 +32,12 @@
                     {{#each data}}
                     <tr>
                         <td>{{this.accountno}}</td>
+                        <td>{{this.reason}}</td>
                         <td>{{this.amount}}</td>
                         <td>{{this.interest}}</td>
                         <td>{{this.tenure}}</td>
+                        <td>{{formatDate this.applyDate}}</td>
+                        <td>{{formatDate this.statusDate}}</td>
                         <td class="{{#if_eq this.status "approved"}}correct{{else}}incorrect{{/if_eq}}">{{this.status}}</td>
                     </tr>
                     {{/each}}

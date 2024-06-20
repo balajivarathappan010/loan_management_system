@@ -13,4 +13,5 @@ router.post("/lender",userController.lender);
 router.get("/adminlogout", adminController.logout);
 router.post("/approve",userController.approved);
 router.post("/reject", userController.rejected);
+router.post("/history", userController.history);
 module.exports = router;

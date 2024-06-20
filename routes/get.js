@@ -47,6 +47,4 @@ router.get('/adminSignup', (req, res)=>{
     res.render('adminSignup');
 })
 
-// router.get(userControl.getItems)
-
 module.exports = router;

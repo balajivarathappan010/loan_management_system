@@ -8,8 +8,10 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="/admin">History</a>
-        <a href="/">logout</a>
+        <form action="/post/history" method="POST">
+            <button type="submit">History</button>
+        </form>
+        <a href="/post/logout">Logout</a>
     </div>
     <div class="form-container-submit">
         <form action="/post/borrower" method="POST">
@@ -17,12 +19,8 @@
                 <p class="{{msg_type}}">{{msg}}</p>
             {{/if}}
             <h2>Welcome to Borrower Dashboard</h2>
-
-            <!-- Apply for Loan section -->
             <div id="applyForLoan">
                 <h3>Apply for Loan</h3>
-               
-                <!-- Additional details form (hidden by default) -->
                 <div class="form-group">
                     <label for="accountno">Account number</label>
                     <input type="text" id="accountno" name="accountno" placeholder="Enter your acoount no">

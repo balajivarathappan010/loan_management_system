@@ -3,26 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/styles2.css">
     <title>History</title>
 </head>
 <body>
+    <div class="navbar">
+        <a href="borrower">Home</a>
+        <a href="/post/logout">Logout</a>
+    </div>
     <div class="form-container">
-        {{#if amount}}
-        <h2>Approved Load Details</h2>
-        <ul>
-            {{#each amount}}
-            <li>
-                <p>Loan Type: {{this.loanType}}</p>
-                <p>Amount: {{this.amount}}</p>
-                <p>Interest: {{this.interest}}</p>
-                <p>Tenure: {{this.tenure}}</p>
-                <p>Approved</p>
-            </li>
-            {{/each}}
-        </ul>
-        {{else}}
-        <p>No data found</p>
-        {{/if}}
+        <form action="/post/history" method="POST">
+            <h1>Welcome to History page</h1>
+            {{#if data}}
+            <div class="table-content">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Account number</th>
+                        <th>Reason</th>
+                        <th>Amount</th>
+                        <th>Interest</th>
+                        <th>Tenure</th>
+                        <th>Apply Date</th>
+                        <th>Status Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <td>{{this.accountno}}</td>
+                        <td>{{this.reason}}</td>
+                        <td>{{this.amount}}</td>
+                        <td>{{this.interest}}</td>
+                        <td>{{this.tenure}}</td>
+                        <td>{{formatDate this.applyDate}}</td>
+                        <td>{{formatDate this.statusDate}}</td>
+                        <td class="{{#if_eq this.status "approved"}}correct{{else}}incorrect{{/if_eq}}">{{this.status}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            </div>
+            {{else}}
+            <p>No data found</p>
+            {{/if}}
+        </form>
     </div>
 </body>
 </html>
