@@ -6,7 +6,6 @@ const dotenv = require('dotenv')
 const path = require('path')
 const location = path.join(__dirname,"./public")
 const session = require('express-session')
-const moment = require('moment-timezone');
 const crypto = require('crypto');
 const app = express();
 
